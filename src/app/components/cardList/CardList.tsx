@@ -1,4 +1,4 @@
-import Card from "../Card/Card";
+import Card from "../card/Card";
 import Pagination from "../pagination/Pagination";
 import styles from "./cardList.module.css";
 
