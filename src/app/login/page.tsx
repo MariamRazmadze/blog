@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { data, status } = useSession();
+  const { status } = useSession();
   useEffect(() => {
     if (status === "authenticated") {
       router.push("/");

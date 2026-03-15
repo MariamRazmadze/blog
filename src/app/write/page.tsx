@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "./writePage.module.css";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.bubble.css";
@@ -9,6 +11,18 @@ import "react-quill-new/dist/quill.bubble.css";
 export default function WritePage() {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
+  const router = useRouter();
+  const { status } = useSession();
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
+
+  if (status === "loading") {
+    return <div className={styles.loading}>Loading...</div>;
+  }
+
   return (
     <div className={styles.container}>
       <input type="text" placeholder="Title" className={styles.input} />
