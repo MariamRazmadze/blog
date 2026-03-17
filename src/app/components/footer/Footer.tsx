@@ -33,8 +33,8 @@ export default function Footer() {
         <div className={styles.list}>
           <span className={styles.listTitle}>Tags</span>
           <Link href="/">Coding</Link>
-          <Link href="/">Habits</Link>
-          <Link href="/">Health</Link>
+          <Link href="/">Games</Link>
+          <Link href="/">Stories</Link>
           <Link href="/">Meditation</Link>
         </div>
         <div className={styles.list}>

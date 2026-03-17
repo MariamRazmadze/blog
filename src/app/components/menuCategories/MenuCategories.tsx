@@ -11,10 +11,10 @@ export default function MenuCategories() {
         Coding
       </Link>
       <Link
-        href="/blog?cat=habits"
-        className={`${styles.categoryItem} ${styles.habits}`}
+        href="/blog?cat=games"
+        className={`${styles.categoryItem} ${styles.games}`}
       >
-        Habits
+        Games
       </Link>
       <Link
         href="/blog?cat=meditation"
@@ -23,22 +23,22 @@ export default function MenuCategories() {
         Meditation
       </Link>
       <Link
-        href="/blog?cat=health"
-        className={`${styles.categoryItem} ${styles.health}`}
+        href="/blog?cat=stories"
+        className={`${styles.categoryItem} ${styles.stories}`}
       >
-        Health
+        Stories
       </Link>
       <Link
-        href="/blog?cat=manifestation"
-        className={`${styles.categoryItem} ${styles.manifestation}`}
+        href="/blog?cat=gardening"
+        className={`${styles.categoryItem} ${styles.gardening}`}
       >
-        Manifestation
+        Gardening
       </Link>
       <Link
         href="/blog?cat=yoga"
-        className={`${styles.categoryItem} ${styles.yoga}`}
+        className={`${styles.categoryItem} ${styles.food}`}
       >
-        Yoga
+        Food
       </Link>
     </div>
   );

@@ -32,7 +32,9 @@ export default function MenuPosts({ withImage }: { withImage: boolean }) {
           </div>
         )}
         <div className={styles.textContainer}>
-          <span className={`${styles.category} ${styles.health}`}>Health</span>
+          <span className={`${styles.category} ${styles.stories}`}>
+            Stories
+          </span>
           <h3 className={styles.postTitle}>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed,
             atque!
@@ -70,7 +72,7 @@ export default function MenuPosts({ withImage }: { withImage: boolean }) {
           </div>
         )}
         <div className={styles.textContainer}>
-          <span className={`${styles.category} ${styles.habits}`}>Habits</span>
+          <span className={`${styles.category} ${styles.games}`}>Games</span>
           <h3 className={styles.postTitle}>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed,
             atque!
