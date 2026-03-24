@@ -31,17 +31,19 @@ export default async function CategoryList() {
         {data?.map((item: Category) => (
           <Link
             href="/blog?cat=style"
-            className={`${styles.category} ${styles.coding}`}
-            key={item._id}
+            className={`${styles.category} ${styles[item.slug]}`}
+            key={item.slug}
           >
-            <Image
-              src="/style.png"
-              alt=""
-              width={32}
-              height={32}
-              className={styles.image}
-            />
-            Coding
+            {item.img && (
+              <Image
+                src={item.img}
+                alt=""
+                width={32}
+                height={32}
+                className={styles.image}
+              />
+            )}
+            {item.title}
           </Link>
         ))}
       </div>
