@@ -7,9 +7,9 @@ export type Post = {
   title: string;
 };
 
-export default function Card({ key, item }: { key: string; item: Post }) {
+export default function Card({ item }: { item: Post }) {
   return (
-    <div className={styles.container} key={key}>
+    <div className={styles.container}>
       <div className={styles.imageContainer}>
         <Image src="/p1.jpeg" alt="" fill className={styles.image} />
       </div>
