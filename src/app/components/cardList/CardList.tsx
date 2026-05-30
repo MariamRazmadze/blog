@@ -1,7 +1,7 @@
 import Card from "../card/Card";
 import Pagination from "../pagination/Pagination";
 import styles from "./cardList.module.css";
-import type { Post } from "@prisma/client";
+import type { Post } from "../card/Card";
 
 type PostsResponse = {
   posts: Post[];
@@ -20,7 +20,7 @@ const getData = async (page: number): Promise<PostsResponse> => {
   return res.json();
 };
 
-export default async function cardList({ page }: { page: number }) {
+export default async function CardList({ page }: { page: number }) {
   const { posts, count } = await getData(page);
 
   const POST_PER_PAGE = 2;

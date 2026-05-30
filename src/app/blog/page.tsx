@@ -7,7 +7,7 @@ export default function BlogPage() {
     <div className={styles.container}>
       <h1 className={styles.title}>Coding Blog</h1>
       <div className={styles.content}>
-        <CardList />
+        <CardList page={1} />
         <Menu />
       </div>
     </div>

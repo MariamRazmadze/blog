@@ -19,7 +19,8 @@ const getData = async () => {
     throw new Error("Failed");
   }
 
-  return res.json();
+  const data = await res.json();
+  return data;
 };
 
 export default async function CategoryList() {
@@ -30,7 +31,7 @@ export default async function CategoryList() {
       <div className={styles.categories}>
         {data?.map((item: Category) => (
           <Link
-            href="/blog?cat=style"
+            href="/blog?cat=coding"
             className={`${styles.category} ${styles[item.slug]}`}
             key={item.slug}
           >

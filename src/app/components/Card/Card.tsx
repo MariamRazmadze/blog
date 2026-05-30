@@ -5,6 +5,8 @@ import Image from "next/image";
 export type Post = {
   id: string;
   title: string;
+  createdAt: string;
+  catSlug: string;
 };
 
 export default function Card({ item }: { item: Post }) {
@@ -15,8 +17,10 @@ export default function Card({ item }: { item: Post }) {
       </div>
       <div className={styles.textContainer}>
         <div className={styles.detail}>
-          <span className={styles.date}>02.20.2026 - </span>
-          <span className={styles.category}>Meditation</span>
+          <span className={styles.date}>
+            {item.createdAt.substring(0, 10)} -{" "}
+          </span>
+          <span className={styles.category}>{item.catSlug}</span>
         </div>
         <Link href="/">
           <h1>{item.title}</h1>
