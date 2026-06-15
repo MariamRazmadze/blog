@@ -8,10 +8,13 @@ type PostsResponse = {
   count: number;
 };
 
-const getData = async (page: number): Promise<PostsResponse> => {
-  const res = await fetch(`http://localhost:3000/api/posts?page=${page}`, {
-    cache: "no-store",
-  });
+const getData = async (page: number, cat: string): Promise<PostsResponse> => {
+  const res = await fetch(
+    `http://localhost:3000/api/posts?page=${page}&cat=${cat || ""}`,
+    {
+      cache: "no-store",
+    },
+  );
 
   if (!res.ok) {
     throw new Error("Failed");
@@ -20,8 +23,14 @@ const getData = async (page: number): Promise<PostsResponse> => {
   return res.json();
 };
 
-export default async function CardList({ page }: { page: number }) {
-  const { posts, count } = await getData(page);
+export default async function CardList({
+  page,
+  cat,
+}: {
+  page: number;
+  cat: string;
+}) {
+  const { posts, count } = await getData(page, cat);
 
   const POST_PER_PAGE = 2;
   const hasPrev = POST_PER_PAGE * (page - 1) > 0;

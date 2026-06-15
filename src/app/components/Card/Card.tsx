@@ -7,14 +7,20 @@ export type Post = {
   title: string;
   createdAt: string;
   catSlug: string;
+  img?: string;
+  desc: string;
+  slug: string;
 };
 
 export default function Card({ item }: { item: Post }) {
   return (
     <div className={styles.container}>
-      <div className={styles.imageContainer}>
-        <Image src="/p1.jpeg" alt="" fill className={styles.image} />
-      </div>
+      {item.img && (
+        <div className={styles.imageContainer}>
+          <Image src={item.img} alt="" fill className={styles.image} />
+        </div>
+      )}
+
       <div className={styles.textContainer}>
         <div className={styles.detail}>
           <span className={styles.date}>
@@ -22,15 +28,11 @@ export default function Card({ item }: { item: Post }) {
           </span>
           <span className={styles.category}>{item.catSlug}</span>
         </div>
-        <Link href="/">
+        <Link href={`/posts/${item.slug}`}>
           <h1>{item.title}</h1>
         </Link>
-        <p className={styles.desc}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, ut ad id
-          repellat impedit voluptates fugit aut, voluptatem, debitis esse itaque
-          minus sunt nobis inventore. Sequi harum id doloribus. Eligendi.
-        </p>
-        <Link href="/" className={styles.link}>
+        <p className={styles.desc.substring(0, 60)}>{item.desc}</p>
+        <Link href={`/posts/${item.slug}`} className={styles.link}>
           Read More
         </Link>
       </div>
