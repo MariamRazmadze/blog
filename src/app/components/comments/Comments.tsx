@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 type Comment = {
   id: string;
@@ -29,18 +30,35 @@ const fetcher = async (url: string) => {
 
 export default function Comments({ postSlug }: { postSlug: string }) {
   const { status } = useSession();
-  const { data, isLoading } = useSWR(
+  const { data, mutate, isLoading } = useSWR(
     `http://localhost:3000/api/comments?postSlug=${postSlug}`,
     fetcher,
   );
+
+  const [desc, setDesc] = useState("");
+
+  const handleSubmit = async () => {
+    await fetch("/api/comments", {
+      // ← options object is now the second argument
+      method: "POST",
+      body: JSON.stringify({ desc, postSlug }),
+    });
+    mutate();
+  };
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Comments</h1>
       {status === "authenticated" ? (
         <div className={styles.write}>
-          <textarea placeholder="Write a comment..." className={styles.input} />
-          <button className={styles.button}>Send</button>
+          <textarea
+            placeholder="Write a comment..."
+            className={styles.input}
+            onChange={(e) => setDesc(e.target.value)}
+          />
+          <button className={styles.button} onClick={handleSubmit}>
+            Send
+          </button>
         </div>
       ) : (
         <Link href="/login">Login to write a comment</Link>
@@ -48,7 +66,7 @@ export default function Comments({ postSlug }: { postSlug: string }) {
       <div className={styles.comments}>
         {isLoading
           ? "loading"
-          : data?.map((item: Comment) => (
+          : data?.comments?.map((item: Comment) => (
               <div key={item.id} className={styles.comment}>
                 <div className={styles.user}>
                   {item?.user?.image && (
