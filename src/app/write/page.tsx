@@ -7,14 +7,81 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ReactQuill from "react-quill-new";
 import "react-quill-new/dist/quill.bubble.css";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { app } from "@/utils/firebase";
 
 export default function WritePage() {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
+  const storage = getStorage(app);
   const router = useRouter();
   const { status } = useSession();
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState("");
+  const [file, setFile] = useState<File | null>(null);
+  const [media, setMedia] = useState("");
+  const [title, setTitle] = useState("");
+  // Create the file metadata
+  /** @type {any} */
+  const metadata = {
+    contentType: "image/jpeg",
+  };
+
   useEffect(() => {
-    if (status === "authenticated") {
+    const upload = () => {
+      const name = new Date().getTime + file.name;
+      const storageRef = ref(storage, name);
+      const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+          }
+        },
+        (error) => {
+          // A full list of error codes is available at
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (error.code) {
+            case "storage/unauthorized":
+              // User doesn't have permission to access the object
+              break;
+            case "storage/canceled":
+              // User canceled the upload
+              break;
+
+            // ...
+
+            case "storage/unknown":
+              // Unknown error occurred, inspect error.serverResponse
+              break;
+          }
+        },
+        () => {
+          // Upload completed successfully, now we can get the download URL
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setMedia(downloadURL);
+          });
+        },
+      );
+    };
+
+    file && upload();
+  }, [file]);
+  useEffect(() => {
+    if (status === "unauthenticated") {
       router.push("/");
     }
   }, [status, router]);
@@ -23,17 +90,54 @@ export default function WritePage() {
     return <div className={styles.loading}>Loading...</div>;
   }
 
+  const slugify = (str: string) =>
+    str
+      .toLowerCase()
+      .trim()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/[\s_-]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+  const handleSubmit = async () => {
+    const res = await fetch("/api/posts", {
+      method: "POST",
+      body: JSON.stringify({
+        title,
+        desc: value,
+        img: media,
+        slug: slugify(title),
+        catSlug: "coding",
+      }),
+    });
+    console.log(res);
+  };
+
   return (
     <div className={styles.container}>
-      <input type="text" placeholder="Title" className={styles.input} />
+      <input
+        type="text"
+        placeholder="Title"
+        className={styles.input}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+
+      {/* TODO: ADD CATEGORY */}
       <div className={styles.editor}>
         <button className={styles.button} onClick={() => setOpen(!open)}>
           <Image src="/plus.png" alt="" width={16} height={16} />
         </button>
         {open && (
           <div className={styles.add}>
+            <input
+              type="file"
+              id="image"
+              onChange={(e) => setFile(e.target.files?.[0] ?? null)}
+              style={{ display: "none" }}
+            />
             <button className={styles.addbutton}>
-              <Image src="/image.png" alt="" width={16} height={16} />
+              <label htmlFor="image">
+                <Image src="/image.png" alt="" width={16} height={16} />
+              </label>
             </button>
             <button className={styles.addbutton}>
               <Image src="/external.png" alt="" width={16} height={16} />
@@ -51,7 +155,9 @@ export default function WritePage() {
           placeholder="Tell your story..."
         />
       </div>
-      <button className={styles.publish}>Publish</button>
+      <button className={styles.publish} onClick={handleSubmit}>
+        Publish
+      </button>
     </div>
   );
 }
