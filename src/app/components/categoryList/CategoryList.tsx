@@ -11,7 +11,7 @@ type Category = {
 };
 
 const getData = async () => {
-  const res = await fetch("http://localhost:3000/api/categories", {
+  const res = await fetch("api/categories", {
     cache: "no-store",
   });
 
