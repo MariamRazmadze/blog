@@ -32,9 +32,9 @@ export default function WritePage() {
 
   useEffect(() => {
     const upload = () => {
-      const name = new Date().getTime + file.name;
+      const name = new Date().getTime() + file!.name;
       const storageRef = ref(storage, name);
-      const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+      const uploadTask = uploadBytesResumable(storageRef, file!, metadata);
       uploadTask.on(
         "state_changed",
         (snapshot) => {

@@ -2,7 +2,11 @@
 import { ThemeContext } from "@/context/ThemeContext";
 import { useContext, useState, useEffect } from "react";
 
-export default function ThemeProvider({ children }) {
+export default function ThemeProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { theme } = useContext(ThemeContext);
   const [mounted, setMounted] = useState(false);
   useEffect(() => {

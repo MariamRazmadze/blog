@@ -3,7 +3,8 @@ import Menu from "../components/menu/Menu";
 import styles from "./singlePage.module.css";
 import Image from "next/image";
 
-export default function SinglePage() {
+export default function SinglePage({ params }: { params: { slug: string } }) {
+  const { slug } = params;
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
@@ -53,7 +54,7 @@ export default function SinglePage() {
             </p>
           </div>
           <div className={styles.comment}>
-            <Comments />
+            <Comments postSlug={slug} />
           </div>
         </div>
         <Menu />
