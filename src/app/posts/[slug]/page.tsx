@@ -4,7 +4,7 @@ import styles from "./singlePage.module.css";
 import Image from "next/image";
 
 const getData = async (slug: string) => {
-  const res = await fetch(`/api/posts/${slug}`, {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/${slug}`, {
     cache: "no-store",
   });
 
