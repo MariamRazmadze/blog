@@ -1,17 +1,32 @@
 import styles from "./navbar.module.css";
-import Image from "next/image";
 import Link from "next/link";
 import AuthLinks from "../authLinks/AuthLinks";
 import ThemeToggle from "../themeToggle/ThemeToggle";
+import { LuGithub } from "react-icons/lu";
+import { LuLinkedin } from "react-icons/lu";
+import { LuYoutube } from "react-icons/lu";
+import { LuFacebook } from "react-icons/lu";
 
 export default function Navbar() {
   return (
     <div className={styles.container}>
       <div className={styles.social}>
-        <Image src="/facebook.png" alt="facebook" width={24} height={24} />
-        <Image src="/instagram.png" alt="instagram" width={24} height={24} />
-        <Image src="/tiktok.png" alt="tiktok" width={24} height={24} />
-        <Image src="/youtube.png" alt="youtube" width={24} height={24} />
+        <a
+          href="https://github.com/MariamRazmadze"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <LuGithub size={22} />
+        </a>
+        <a href="#" target="_blank" rel="noopener noreferrer">
+          <LuLinkedin size={22} />
+        </a>
+        <a href="#" target="_blank" rel="noopener noreferrer">
+          <LuYoutube size={22} />
+        </a>
+        <a href="#" target="_blank" rel="noopener noreferrer">
+          <LuFacebook size={22} />
+        </a>
       </div>
       <div className={styles.logo}>Mariam&apos;s Blog</div>
       <div className={styles.links}>

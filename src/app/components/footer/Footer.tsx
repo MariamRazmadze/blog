@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styles from "./footer.module.css";
 import Image from "next/image";
+import { LuGithub, LuLinkedin, LuYoutube, LuFacebook } from "react-icons/lu";
 
 export default function Footer() {
   return (
@@ -16,10 +17,22 @@ export default function Footer() {
           qui hic vero veniam ea quod ex atque asperiores natus facere sequi.
         </p>
         <div className={styles.icons}>
-          <Image src="/facebook.png" alt="" width={18} height={18} />
-          <Image src="/instagram.png" alt="" width={18} height={18} />
-          <Image src="/tiktok.png" alt="" width={18} height={18} />
-          <Image src="/youtube.png" alt="" width={18} height={18} />
+          <a
+            href="https://github.com/MariamRazmadze"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <LuGithub size={22} />
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer">
+            <LuLinkedin size={22} />
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer">
+            <LuYoutube size={22} />
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer">
+            <LuFacebook size={22} />
+          </a>
         </div>
       </div>
       <div className={styles.links}>
