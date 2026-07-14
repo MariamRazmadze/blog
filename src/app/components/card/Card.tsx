@@ -31,7 +31,10 @@ export default function Card({ item }: { item: Post }) {
         <Link href={`/posts/${item.slug}`}>
           <h1>{item.title}</h1>
         </Link>
-        <p className={styles.desc.substring(0, 60)}>{item.desc}</p>
+        <div
+          className={styles.desc}
+          dangerouslySetInnerHTML={{ __html: item.desc.substring(0, 60) }}
+        />
         <Link href={`/posts/${item.slug}`} className={styles.link}>
           Read More
         </Link>

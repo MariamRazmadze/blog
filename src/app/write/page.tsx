@@ -24,17 +24,12 @@ export default function WritePage() {
   const [file, setFile] = useState<File | null>(null);
   const [media, setMedia] = useState("");
   const [title, setTitle] = useState("");
-  // Create the file metadata
-  /** @type {any} */
-  const metadata = {
-    contentType: "image/jpeg",
-  };
 
   useEffect(() => {
     const upload = () => {
       const name = new Date().getTime() + file!.name;
       const storageRef = ref(storage, name);
-      const uploadTask = uploadBytesResumable(storageRef, file!, metadata);
+      const uploadTask = uploadBytesResumable(storageRef, file!);
       uploadTask.on(
         "state_changed",
         (snapshot) => {
