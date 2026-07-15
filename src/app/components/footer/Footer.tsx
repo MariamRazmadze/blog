@@ -52,10 +52,22 @@ export default function Footer() {
         </div>
         <div className={styles.list}>
           <span className={styles.listTitle}>Social</span>
-          <Link href="/">Facebook</Link>
-          <Link href="/">Instagram</Link>
-          <Link href="/">Tiktok</Link>
-          <Link href="/">Youtube</Link>
+          <a
+            href="https://github.com/MariamRazmadze"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer">
+            LinkedIn
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer">
+            YouTube
+          </a>
+          <a href="#" target="_blank" rel="noopener noreferrer">
+            Facebook
+          </a>
         </div>
       </div>
     </div>

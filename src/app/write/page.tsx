@@ -89,7 +89,7 @@ export default function WritePage() {
     str
       .toLowerCase()
       .trim()
-      .replace(/[^\w\s-]/g, "")
+      .replace(/[^\p{L}\p{N}\s-]/gu, "")
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "");
 
