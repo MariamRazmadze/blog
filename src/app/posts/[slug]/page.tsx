@@ -42,13 +42,17 @@ export default async function SinglePage({
 
             <div className={styles.userTextContainer}>
               <span className={styles.username}>{post?.user.name}</span>
-              <span className={styles.date}>02.06.2026</span>
+              <span className={styles.date}>
+                {post.createdAt?.substring(0, 10)}
+              </span>
             </div>
           </div>
         </div>
-        <div className={styles.imageContainer}>
-          <Image src="/p1.jpeg" alt="" fill className={styles.image} />
-        </div>
+        {post.img && (
+          <div className={styles.imageContainer}>
+            <Image src={post.img} alt="" fill className={styles.image} />
+          </div>
+        )}
       </div>
       <div className={styles.content}>
         <div className={styles.post}>

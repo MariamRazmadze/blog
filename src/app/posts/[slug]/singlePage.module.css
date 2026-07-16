@@ -59,6 +59,12 @@
 .post {
   flex: 5;
   margin-top: 60px;
+  min-width: 0;
+}
+
+.description {
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .description p {
