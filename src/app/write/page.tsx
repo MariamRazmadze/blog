@@ -24,6 +24,7 @@ export default function WritePage() {
   const [file, setFile] = useState<File | null>(null);
   const [media, setMedia] = useState("");
   const [title, setTitle] = useState("");
+  const [catSlug, setCatSlug] = useState("");
 
   useEffect(() => {
     const upload = () => {
@@ -33,7 +34,6 @@ export default function WritePage() {
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log("Upload is " + progress + "% done");
@@ -47,25 +47,16 @@ export default function WritePage() {
           }
         },
         (error) => {
-          // A full list of error codes is available at
-          // https://firebase.google.com/docs/storage/web/handle-errors
           switch (error.code) {
             case "storage/unauthorized":
-              // User doesn't have permission to access the object
               break;
             case "storage/canceled":
-              // User canceled the upload
               break;
-
-            // ...
-
             case "storage/unknown":
-              // Unknown error occurred, inspect error.serverResponse
               break;
           }
         },
         () => {
-          // Upload completed successfully, now we can get the download URL
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setMedia(downloadURL);
           });
@@ -75,6 +66,7 @@ export default function WritePage() {
 
     file && upload();
   }, [file]);
+
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/");
@@ -94,17 +86,27 @@ export default function WritePage() {
       .replace(/^-+|-+$/g, "");
 
   const handleSubmit = async () => {
+    const baseSlug = slugify(title);
+    // const uniqueSlug = `${baseSlug}-${Date.now().toString(36)}`;
+
     const res = await fetch("/api/posts", {
       method: "POST",
       body: JSON.stringify({
         title,
         desc: value,
         img: media,
-        slug: slugify(title),
-        catSlug: "coding",
+        slug: baseSlug,
+        catSlug: catSlug || "coding",
       }),
     });
-    console.log(res);
+
+    if (res.status === 200) {
+      const data = await res.json();
+      router.push(`/posts/${data.post.slug}`);
+    } else {
+      const data = await res.json();
+      alert(data.message || "Something went wrong.");
+    }
   };
 
   return (
@@ -116,7 +118,18 @@ export default function WritePage() {
         onChange={(e) => setTitle(e.target.value)}
       />
 
-      {/* TODO: ADD CATEGORY */}
+      <select
+        className={styles.select}
+        onChange={(e) => setCatSlug(e.target.value)}
+      >
+        <option value="coding"> Coding</option>
+        <option value="games"> Games</option>
+        <option value="meditation"> Meditation</option>
+        <option value="stories"> Stories</option>
+        <option value="gardening"> Gardening</option>
+        <option value="food"> Food</option>
+      </select>
+
       <div className={styles.editor}>
         <button className={styles.button} onClick={() => setOpen(!open)}>
           <Image src="/plus.png" alt="" width={16} height={16} />

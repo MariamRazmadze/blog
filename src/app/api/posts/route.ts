@@ -31,7 +31,6 @@ export const GET = async (req: Request) => {
 };
 
 //CREATE A POST
-
 export const POST = async (req: Request) => {
   const session = await getAuthSession();
   if (!session) {
@@ -48,6 +47,19 @@ export const POST = async (req: Request) => {
 
     return new NextResponse(JSON.stringify({ post }), { status: 200 });
   } catch (err) {
+    if (
+      err instanceof Prisma.PrismaClientKnownRequestError &&
+      err.code === "P2002"
+    ) {
+      return new NextResponse(
+        JSON.stringify({
+          message:
+            "A post with this title already exists. Please choose a different title.",
+        }),
+        { status: 409 }, // 409 Conflict is the correct status for this
+      );
+    }
+
     console.log(err);
     return new NextResponse(
       JSON.stringify({ message: "Something went wrong!" }),
