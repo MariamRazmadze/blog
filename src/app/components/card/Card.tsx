@@ -12,6 +12,23 @@ export type Post = {
   slug: string;
 };
 
+const getPlainExcerpt = (html: string, maxLength: number) => {
+  const plainText = html
+    .replace(/<[^>]*>/g, " ") // strip tags, keep a space so words don't merge
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, " ") // collapse repeated whitespace
+    .trim();
+
+  return plainText.length > maxLength
+    ? plainText.slice(0, maxLength) + "..."
+    : plainText;
+};
+
 export default function Card({ item }: { item: Post }) {
   return (
     <div className={styles.container}>
@@ -31,10 +48,7 @@ export default function Card({ item }: { item: Post }) {
         <Link href={`/posts/${item.slug}`}>
           <h1>{item.title}</h1>
         </Link>
-        <div
-          className={styles.desc}
-          dangerouslySetInnerHTML={{ __html: item.desc.substring(0, 60) }}
-        />
+        <p className={styles.desc}>{getPlainExcerpt(item.desc, 60)}</p>
         <Link href={`/posts/${item.slug}`} className={styles.link}>
           Read More
         </Link>
