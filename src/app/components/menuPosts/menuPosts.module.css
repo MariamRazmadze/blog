@@ -39,7 +39,7 @@
   width: max-content;
 }
 
-.category.meditation {
+.category.events {
   background-color: #ff7857;
 }
 .category.stories {
@@ -48,7 +48,7 @@
 .category.strength {
   background-color: #7fb881;
 }
-.category.games {
+.category.people {
   background-color: #ff7887;
 }
 .postTitle {

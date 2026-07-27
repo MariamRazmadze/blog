@@ -12,9 +12,7 @@ export default function MenuPosts({ withImage }: { withImage: boolean }) {
           </div>
         )}
         <div className={styles.textContainer}>
-          <span className={`${styles.category} ${styles.meditation}`}>
-            Meditation
-          </span>
+          <span className={`${styles.category} ${styles.events}`}>Events</span>
           <h3 className={styles.postTitle}>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed,
             atque!

@@ -127,8 +127,8 @@ export default function WritePage() {
         onChange={(e) => setCatSlug(e.target.value)}
       >
         <option value="coding"> Coding</option>
-        <option value="games"> Games</option>
-        <option value="meditation"> Meditation</option>
+        <option value="people"> People</option>
+        <option value="events"> Events</option>
         <option value="stories"> Stories</option>
         <option value="gardening"> Gardening</option>
         <option value="food"> Food</option>

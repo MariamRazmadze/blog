@@ -11,16 +11,16 @@ export default function MenuCategories() {
         Coding
       </Link>
       <Link
-        href="/blog?cat=games"
-        className={`${styles.categoryItem} ${styles.games}`}
+        href="/blog?cat=people"
+        className={`${styles.categoryItem} ${styles.people}`}
       >
-        Games
+        People
       </Link>
       <Link
-        href="/blog?cat=meditation"
-        className={`${styles.categoryItem} ${styles.meditation}`}
+        href="/blog?cat=events"
+        className={`${styles.categoryItem} ${styles.events}`}
       >
-        Meditation
+        Events
       </Link>
       <Link
         href="/blog?cat=stories"

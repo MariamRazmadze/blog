@@ -46,9 +46,9 @@ export default function Footer() {
         <div className={styles.list}>
           <span className={styles.listTitle}>Tags</span>
           <Link href="/">Coding</Link>
-          <Link href="/">Games</Link>
+          <Link href="/">People</Link>
           <Link href="/">Stories</Link>
-          <Link href="/">Meditation</Link>
+          <Link href="/">Events</Link>
         </div>
         <div className={styles.list}>
           <span className={styles.listTitle}>Social</span>
