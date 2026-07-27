@@ -14,6 +14,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { app } from "@/utils/firebase";
+import DOMPurify from "isomorphic-dompurify";
 
 export default function WritePage() {
   const storage = getStorage(app);
@@ -86,6 +87,9 @@ export default function WritePage() {
       .replace(/^-+|-+$/g, "");
 
   const handleSubmit = async () => {
+    const cleanDesc = DOMPurify.sanitize(value, {
+      FORBID_ATTR: ["style"],
+    });
     const baseSlug = slugify(title);
     // const uniqueSlug = `${baseSlug}-${Date.now().toString(36)}`;
 
@@ -93,7 +97,7 @@ export default function WritePage() {
       method: "POST",
       body: JSON.stringify({
         title,
-        desc: value,
+        desc: cleanDesc,
         img: media,
         slug: baseSlug,
         catSlug: catSlug || "coding",
