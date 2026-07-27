@@ -1,30 +1,36 @@
 import styles from "./featured.module.css";
 import Image from "next/image";
+import Link from "next/link";
+import { prisma } from "@/utils/connect";
+import { getPlainExcerpt } from "@/utils/text";
 
-export default function Featured() {
+export default async function Featured() {
+  const post = await prisma.post.findFirst({
+    orderBy: { createdAt: "desc" },
+  });
+
   return (
     <div className={styles.container}>
       <h1>
         <b>Hey, I&apos;m Mariam! </b>I&apos;m writing about things I&apos;m
         learning.
       </h1>
-      <div className={styles.post}>
-        <div className={styles.imgContainer}>
-          <Image src="/p1.jpeg" alt="" fill className={styles.image} />
+      {post && (
+        <div className={styles.post}>
+          {post.img && (
+            <div className={styles.imgContainer}>
+              <Image src={post.img} alt="" fill className={styles.image} />
+            </div>
+          )}
+          <div className={styles.textContainer}>
+            <h1 className={styles.title}>{post.title}</h1>
+            <p className={styles.postDesc}>{getPlainExcerpt(post.desc, 150)}</p>
+            <Link href={`/posts/${post.slug}`}>
+              <button className={styles.button}>Read More</button>
+            </Link>
+          </div>
         </div>
-        <div className={styles.textContainer}>
-          <h1 className={styles.title}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. A, optio?
-          </h1>
-          <p className={styles.postDesc}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati,
-            deserunt minus optio incidunt ea odio corrupti voluptas esse amet
-            voluptate blanditiis nobis mollitia est error? Recusandae et
-            laudantium ex temporibus?
-          </p>
-          <button className={styles.button}>Read More</button>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
