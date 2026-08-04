@@ -6,8 +6,10 @@ import { LuGithub } from "react-icons/lu";
 import { LuLinkedin } from "react-icons/lu";
 import { LuYoutube } from "react-icons/lu";
 import { LuFacebook } from "react-icons/lu";
+import { useTranslations } from "next-intl";
 
 export default function Navbar() {
+  const t = useTranslations("default.nav");
   return (
     <div className={styles.container}>
       <div className={styles.social}>
@@ -32,7 +34,7 @@ export default function Navbar() {
       <div className={styles.links}>
         <ThemeToggle />
         <Link href="/" className={styles.link}>
-          Homepage
+          {t("homepage")}
         </Link>
         <Link href="/contact" className={styles.link}>
           Contact
