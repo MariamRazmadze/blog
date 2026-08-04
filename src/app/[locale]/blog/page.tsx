@@ -1,5 +1,5 @@
-import CardList from "../components/cardList/CardList";
-import Menu from "../components/menu/Menu";
+import CardList from "@/app/components/cardList/CardList";
+import Menu from "@/app/components/menu/Menu";
 import styles from "./blogPage.module.css";
 
 export default function BlogPage() {
