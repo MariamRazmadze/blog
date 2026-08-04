@@ -1,7 +1,15 @@
 {
   "default": {
+    "auth": {
+      "login": "Login",
+      "logout": "Exit",
+      "write": "Write"
+    },
     "nav": {
-      "homepage": "Main"
+      "about": "About",
+      "contact": "Contact",
+      "homepage": "Main",
+      "title": "Maria's blog"
     }
   }
 }

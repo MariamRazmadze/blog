@@ -4,23 +4,25 @@ import Link from "next/link";
 import styles from "./authLinks.module.css";
 import { useState } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 export default function AuthLinks() {
   const [open, setOpen] = useState(false);
   const { status } = useSession();
+  const t = useTranslations("default.auth");
   return (
     <>
       {status === "unauthenticated" ? (
         <Link href="/login" className={styles.link}>
-          Login
+          {t("login")}
         </Link>
       ) : (
         <>
           <Link href="/write" className={styles.link}>
-            Write
+            {t("write")}
           </Link>
           <span className={styles.link} onClick={() => signOut()}>
-            Logout
+            {t("logout")}
           </span>
         </>
       )}

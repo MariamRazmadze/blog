@@ -30,17 +30,17 @@ export default function Navbar() {
           <LuFacebook size={22} />
         </a>
       </div>
-      <div className={styles.logo}>Mariam&apos;s Blog</div>
+      <div className={styles.logo}> {t("title")}</div>
       <div className={styles.links}>
         <ThemeToggle />
         <Link href="/" className={styles.link}>
           {t("homepage")}
         </Link>
         <Link href="/contact" className={styles.link}>
-          Contact
+          {t("contact")}
         </Link>
         <Link href="/about" className={styles.link}>
-          About
+          {t("about")}
         </Link>
         <AuthLinks />
       </div>
