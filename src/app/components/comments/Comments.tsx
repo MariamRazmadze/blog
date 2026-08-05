@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./comments.module.css";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import useSWR from "swr";
 import { useSession } from "next-auth/react";

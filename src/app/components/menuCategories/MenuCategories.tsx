@@ -1,5 +1,5 @@
 import styles from "./menuCategories.module.css";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 export default function MenuCategories() {
   return (

@@ -1,6 +1,6 @@
 import styles from "./featured.module.css";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { prisma } from "@/utils/connect";
 import { getPlainExcerpt } from "@/utils/text";
 import { getTranslations } from "next-intl/server";

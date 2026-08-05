@@ -1,5 +1,5 @@
 import styles from "./navbar.module.css";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import AuthLinks from "../authLinks/AuthLinks";
 import ThemeToggle from "../themeToggle/ThemeToggle";
 import { LuGithub } from "react-icons/lu";

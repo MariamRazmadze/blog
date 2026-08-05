@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import styles from "./card.module.css";
 import Image from "next/image";
 import { getPlainExcerpt } from "@/utils/text";
