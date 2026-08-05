@@ -9,6 +9,7 @@ import AuthProvider from "@/providers/AuthProvider";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { setRequestLocale } from "next-intl/server";
 
 type Props = {
   children: React.ReactNode;
@@ -16,6 +17,10 @@ type Props = {
 };
 
 const inter = Inter({ subsets: ["latin"] });
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 export const metadata: Metadata = {
   title: "Mariam's Blog",
   description: "Writing about the things I'm learning",
@@ -27,6 +32,8 @@ export default async function LocaleLayout({ children, params }: Props) {
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
+
+  setRequestLocale(locale);
   return (
     <html lang="en">
       <body className={inter.className}>
