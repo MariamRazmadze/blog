@@ -3,18 +3,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { prisma } from "@/utils/connect";
 import { getPlainExcerpt } from "@/utils/text";
+import { getTranslations } from "next-intl/server";
 
 export default async function Featured() {
   const post = await prisma.post.findFirst({
     orderBy: { createdAt: "desc" },
   });
 
+  const t = await getTranslations("default.featured");
+
   return (
     <div className={styles.container}>
-      <h1>
-        <b>Hey, I&apos;m Mariam! </b>I&apos;m writing about things I&apos;m
-        learning.
-      </h1>
+      <h1>{t("intro")}</h1>
       {post && (
         <div className={styles.post}>
           {post.img && (

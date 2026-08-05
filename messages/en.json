@@ -5,6 +5,9 @@
       "logout": "Exit",
       "write": "Write"
     },
+    "featured": {
+      "intro": "Hello, I am Mariam. Here I write about everything that fascinates and interests me."
+    },
     "nav": {
       "about": "About",
       "contact": "Contact",
