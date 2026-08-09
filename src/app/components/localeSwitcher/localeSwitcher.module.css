@@ -1,0 +1,53 @@
+.localeSelect {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  display: inline-flex;
+  align-items: center;
+
+  min-width: 72px;
+  padding: 6px 32px 6px 14px;
+
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--textColor);
+
+  background-color: var(--softBg);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'><path d='M1 1L5 5L9 1' stroke='%23626262' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 10px 6px;
+
+  border: 1px solid transparent;
+  border-radius: 999px;
+
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.localeSelect:hover {
+  border-color: var(--softTextColor);
+}
+
+.localeSelect:focus {
+  outline: none;
+  border-color: var(--textColor);
+  box-shadow: 0 0 0 3px rgba(98, 98, 98, 0.15);
+}
+
+.localeSelect:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(98, 98, 98, 0.25);
+}
+
+/* Style the dropdown options (limited browser support, but a nice touch where it works) */
+.localeSelect option {
+  background-color: var(--bg);
+  color: var(--textColor);
+}

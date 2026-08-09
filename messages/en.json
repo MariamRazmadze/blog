@@ -8,6 +8,9 @@
     "featured": {
       "intro": "Hello, I am Mariam. Here I write about everything that fascinates and interests me."
     },
+    "menu": {
+      "categories": "Categories"
+    },
     "nav": {
       "about": "About",
       "contact": "Contact",

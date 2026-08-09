@@ -1,5 +1,6 @@
 import styles from "./categoryList.module.css";
 import { Link } from "@/i18n/navigation";
+import { getTranslations } from "next-intl/server";
 import Image from "next/image";
 
 type Category = {
@@ -25,9 +26,10 @@ const getData = async () => {
 
 export default async function CategoryList() {
   const data = await getData();
+  const t = await getTranslations("default.menu");
   return (
     <div className={styles.container}>
-      <h1>Categories</h1>
+      <h1>{t("categories")}</h1>
       <div className={styles.categories}>
         {data?.map((item: Category) => (
           <Link
