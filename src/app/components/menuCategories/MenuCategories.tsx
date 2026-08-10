@@ -1,45 +1,21 @@
 import styles from "./menuCategories.module.css";
 import { Link } from "@/i18n/navigation";
+import { prisma } from "@/utils/connect";
 
-export default function MenuCategories() {
+export default async function MenuCategories() {
+  const categories = await prisma.category.findMany();
+
   return (
     <div className={styles.categoryList}>
-      <Link
-        href="/blog?cat=coding"
-        className={`${styles.categoryItem} ${styles.coding}`}
-      >
-        Coding
-      </Link>
-      <Link
-        href="/blog?cat=people"
-        className={`${styles.categoryItem} ${styles.people}`}
-      >
-        People
-      </Link>
-      <Link
-        href="/blog?cat=events"
-        className={`${styles.categoryItem} ${styles.events}`}
-      >
-        Events
-      </Link>
-      <Link
-        href="/blog?cat=stories"
-        className={`${styles.categoryItem} ${styles.stories}`}
-      >
-        Stories
-      </Link>
-      <Link
-        href="/blog?cat=gardening"
-        className={`${styles.categoryItem} ${styles.gardening}`}
-      >
-        Gardening
-      </Link>
-      <Link
-        href="/blog?cat=yoga"
-        className={`${styles.categoryItem} ${styles.food}`}
-      >
-        Food
-      </Link>
+      {categories.map((cat) => (
+        <Link
+          key={cat.slug}
+          href={`/blog?cat=${cat.slug}`}
+          className={`${styles.categoryItem} ${styles[cat.slug] ?? ""}`}
+        >
+          {cat.title}
+        </Link>
+      ))}
     </div>
   );
 }
