@@ -9,7 +9,12 @@
       "intro": "Hello, I am Mariam. Here I write about everything that fascinates and interests me."
     },
     "menu": {
-      "categories": "Categories"
+      "categories": "Categories",
+      "discoverByTopic": "Discover by topic",
+      "handpicked": "Manually selected",
+      "hot": "New and interesting",
+      "popular": "Most popular",
+      "worthReading": "It's worth reading"
     },
     "nav": {
       "about": "About",
