@@ -1,7 +1,8 @@
 "use client";
 
 import styles from "./pagination.module.css";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
 
 type PaginationProps = {
   page: number;
@@ -15,20 +16,28 @@ export default function Pagination({
   hasNext,
 }: PaginationProps) {
   const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const goToPage = (newPage: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", String(newPage));
+    router.push(`${pathname}?${params}`);
+  };
 
   return (
     <div className={styles.container}>
       <button
         className={styles.button}
         disabled={!hasPrev}
-        onClick={() => router.push(`?page=${page - 1}`)}
+        onClick={() => goToPage(page - 1)}
       >
         Previous
       </button>
       <button
         className={styles.button}
         disabled={!hasNext}
-        onClick={() => router.push(`?page=${page + 1}`)}
+        onClick={() => goToPage(page + 1)}
       >
         Next
       </button>

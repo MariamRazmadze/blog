@@ -2,18 +2,11 @@ import { Link } from "@/i18n/navigation";
 import styles from "./card.module.css";
 import Image from "next/image";
 import { getPlainExcerpt } from "@/utils/text";
-
-export type Post = {
-  id: string;
-  title: string;
-  createdAt: string;
-  catSlug: string;
-  img?: string;
-  desc: string;
-  slug: string;
-};
+import type { Post } from "@prisma/client";
+import { useFormatter } from "next-intl";
 
 export default function Card({ item }: { item: Post }) {
+  const format = useFormatter();
   return (
     <div className={styles.container}>
       {item.img && (
@@ -25,7 +18,7 @@ export default function Card({ item }: { item: Post }) {
       <div className={styles.textContainer}>
         <div className={styles.detail}>
           <span className={styles.date}>
-            {item.createdAt.substring(0, 10)} -{" "}
+            {format.dateTime(item.createdAt, { dateStyle: "medium" })} -{" "}
           </span>
           <span className={styles.category}>{item.catSlug}</span>
         </div>

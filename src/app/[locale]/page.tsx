@@ -15,7 +15,7 @@ export default async function Home({ searchParams }: HomeProps) {
       <Featured />
       <CategoryList />
       <div className={styles.content}>
-        <CardList page={page} cat="" />
+        <CardList page={page} />
         <Menu />
       </div>
     </div>

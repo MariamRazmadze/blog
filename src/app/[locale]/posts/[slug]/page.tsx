@@ -2,18 +2,9 @@ import Comments from "@/app/components/comments/Comments";
 import Menu from "@/app/components/menu/Menu";
 import styles from "./singlePage.module.css";
 import Image from "next/image";
-
-const getData = async (slug: string) => {
-  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/posts/${slug}`, {
-    cache: "no-store",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed");
-  }
-
-  return res.json();
-};
+import { notFound } from "next/navigation";
+import { getFormatter } from "next-intl/server";
+import { getPostBySlug, incrementViews } from "@/utils/posts";
 
 export default async function SinglePage({
   params,
@@ -21,8 +12,15 @@ export default async function SinglePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const data = await getData(slug);
-  const post = data?.post;
+  const post = await getPostBySlug(slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  await incrementViews(slug);
+  const format = await getFormatter();
+
   return (
     <div className={styles.container}>
       <div className={styles.infoContainer}>
@@ -41,9 +39,9 @@ export default async function SinglePage({
             )}
 
             <div className={styles.userTextContainer}>
-              <span className={styles.username}>{post?.user.name}</span>
+              <span className={styles.username}>{post.user.name}</span>
               <span className={styles.date}>
-                {post.createdAt?.substring(0, 10)}
+                {format.dateTime(post.createdAt, { dateStyle: "medium" })}
               </span>
             </div>
           </div>

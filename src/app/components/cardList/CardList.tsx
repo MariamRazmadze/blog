@@ -1,46 +1,25 @@
 import Card from "../card/Card";
 import Pagination from "../pagination/Pagination";
 import styles from "./cardList.module.css";
-import type { Post } from "../card/Card";
-
-type PostsResponse = {
-  posts: Post[];
-  count: number;
-};
-
-const getData = async (page: number, cat: string): Promise<PostsResponse> => {
-  const res = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/posts?page=${page}&cat=${cat || ""}`,
-    {
-      cache: "no-store",
-    },
-  );
-
-  if (!res.ok) {
-    throw new Error("Failed");
-  }
-
-  return res.json();
-};
+import { getPosts, POSTS_PER_PAGE } from "@/utils/posts";
 
 export default async function CardList({
   page,
   cat,
 }: {
   page: number;
-  cat: string;
+  cat?: string;
 }) {
-  const { posts, count } = await getData(page, cat);
+  const { posts, count } = await getPosts({ page, cat });
 
-  const POST_PER_PAGE = 2;
-  const hasPrev = POST_PER_PAGE * (page - 1) > 0;
-  const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;
+  const hasPrev = page > 1;
+  const hasNext = POSTS_PER_PAGE * page < count;
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Recent Posts</h1>
       <div className={styles.posts}>
-        {posts?.map((item: Post) => (
-          <Card item={item} key={item.title} />
+        {posts.map((item) => (
+          <Card item={item} key={item.id} />
         ))}
       </div>
       <Pagination page={page} hasPrev={hasPrev} hasNext={hasNext} />
