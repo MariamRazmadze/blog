@@ -62,6 +62,10 @@
   background-color: #5e4fff31;
 }
 
+.category.meditation {
+  background-color: #9b8af033;
+}
+
 .image {
   border-radius: 50%;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.6);
