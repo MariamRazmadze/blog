@@ -2,7 +2,7 @@ import { Link } from "@/i18n/navigation";
 import styles from "./card.module.css";
 import Image from "next/image";
 import { getPlainExcerpt } from "@/utils/text";
-import type { Post } from "@prisma/client";
+import type { Post } from "@/generated/prisma/client";
 import { useFormatter } from "next-intl";
 
 export default function Card({ item }: { item: Post }) {
