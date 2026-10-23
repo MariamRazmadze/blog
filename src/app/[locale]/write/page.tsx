@@ -5,7 +5,7 @@ import styles from "./writePage.module.css";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import ReactQuill from "react-quill-new";
+import dynamic from "next/dynamic";
 import "react-quill-new/dist/quill.bubble.css";
 import {
   getStorage,
@@ -15,6 +15,9 @@ import {
 } from "firebase/storage";
 import { app } from "@/utils/firebase";
 import DOMPurify from "isomorphic-dompurify";
+
+// Quill touches `document` when it loads, so only load it in the browser.
+const ReactQuill = dynamic(() => import("react-quill-new"), { ssr: false });
 
 export default function WritePage() {
   const storage = getStorage(app);
